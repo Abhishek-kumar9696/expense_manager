@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const dotenv = require('dotenv');
 const colors = require('colors');
 const connectDb = require("./config/connectDB");
+const userRoute = require('./routes/userRoutes')
 
 //config dot env file 
 dotenv.config();
@@ -25,12 +26,14 @@ app.use(cors());
 // })
 
 //user routes
-app.use('/api/v1/users',require('./routes/userRoutes'))
 
+const PORT = 8082 || process.env.PORT
+app.use('/api/v1/users', userRoute)
+ 
 //transections routes
 app.use("/api/v1/transections",require("./routes/transectionRoutes"));
 //port
-const PORT = 8080 || process.env.PORT
+
 
 //listening
 app.listen(PORT,() =>{
